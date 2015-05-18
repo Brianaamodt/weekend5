@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
+var Users = require('../models/user');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -10,26 +12,20 @@ router.get('/', function(req, res, next) {
     }
 });
 
-router.get('/searchUsers', function(req, res, next){
-    if (req.user.username == "BrianA") {
+router.get('/findUsers', function(req, res, next){
         if (req.isAuthenticated()) {
-            Users.find({}, "username firstName lastName email", function (err, Users) {
-                res.json(Users);
-            });
+            Users.find(
+                {},
+                "username firstName lastName email",
+                function (err, Users) {
+                    res.json(Users);
+                    console.log(1);
+                });
 
         } else {
             res.json("Access Denied");
-        }
-    } else {
-        if (req.isAuthenticated()) {
-            Users.find({username: new RegExp(req.user.username, "i")}, "username firstName lastName email", function (err, Users) {
-                res.json(Users);
-            });
-
-        } else {
-            res.json("Access Denied");
-        }
     }
 });
+
 
 module.exports = router;

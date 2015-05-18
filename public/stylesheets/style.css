@@ -3,6 +3,14 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+li{
+  list-style: none;
+}
+
+li:nth-child(even){
+  color: #ffffff;
+  background-color: #000000;
+}
 a {
   color: #00B7FF;
 }
